@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://comet-server.com/CometServerApi.js"></script>
+    <script type="text/javascript" src="https://comet-server.com/doc/html_chat.js"></script>
+    
+    </link>
+    <title>Wikipedia</title>
+</head>
+
+<body>
+    <div id="container">
+        <header id="header-root">
+
+            <!-- Headers will be inserted here -->
+
+        </header>
+
+        <div id="wrapper">
+            <section id="left">
+                <div class="search-navigation">
+                    <ul>
+                        <li><a class="search-type-active" href="#">Basic Search</li>
+                        <li><a class="search-type-inactive" href="#">Advanced Search</a></li>
+                    </ul>
+                </div>
+                <div class="search-container">
+                    <form class="search-wrapper">
+                        <i class="search-icon fas fa-search"></i>
+                        <input id="people-search-input" type="search" class="search-input"
+                            placeholder="Search / Поиск" />
+                        <input id="people-search-button" type="button" value="Search" class="search-button" />
+                    </form>
+                </div>
+            </section>
+
+            <section id="right">
+                <div class="article-navigation">
+                    <p id="employees-count"></p>
+                    <div class="view-type">
+                        <a href="#" id="display_block" class="view-type-active-block"><i
+                                class="fas fa-th-large"></i></a>
+                        <a href="#" id="display_inline"><i class="fas fa-th-list"></i></a>
+                    </div>
+                </div>
+                <div id='employees-pages-id' class="employees-pages">
+
+                    <!-- Template (id = "block-style") will be inserted here -->
+                    <!-- Template (id = "inline-style-navigation") will be inserted here -->
+                    <!-- Template (id = "inline-style") will be inserted here -->
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div id="contact-chat-form" class="contact-chat-form">
+        <a id="contact-chat-link" href="#"><i class="fas fa-comments"></i></a>
+    </div>
+
+    <div id="input-form-chat" class="input-form chat-hidden">
+        <p class="input-form-p">Welcome to the contact form of our site, leave your comment or wish, our HR managers
+            will respond to you!</p>
+        <select id="select-value" name="hero[]">
+            <option disabled>Select type</option>
+            <option selected value="1">Help</option>
+            <option value="2 Гена">Wishes</option>
+            <option value="3">Not work</option>
+            <option value="4">Other</option>
+        </select>
+        <input id="chat-input" class="chat-input" />
+        <input type="submit" id="butt-contact" class="btn small" value="Send">
+        <input type="submit" id="butt-close" class="btn small color" value="Close">
+    </div>
+
+    <div id="wiki-chat" class="input-form-chat input-form-wiki chat-hidden">
+        <p class="input-form-p">Welcome to the chat!</p>
+        <div id="html-chat"></div>
+        <input type="submit" id="wiki-butt-close" class="btn small color margin-btn-top" value="Close">
+    </div>
+    <script src = "https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script>
+
+        $(document).ready(function()
+          {
+             CometServer().start({dev_id: 2865 }) 
+             htmljs_Chat_Init( $("#html-chat") )
+          });
+        
+        </script>
+    <!-- Header template for user -->
+    <script id="user-header" type="text/template">
+        <div class = "logo-wrapper">
+            <div class = "logo">Shayrma Group</div>
+            <div class = "page-name">Wikipedia</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a class = "nav-link-active" id="open-articles"  href = "#">Main Page</a></li>
+                <li><a class = "nav-link-inactive" id = "open-users" href = "#">Users</a></li>
+                <li><a class = "nav-link-inactive" id = "open-news" href = "#">News</a></li>
+                <li><a class = "nav-link-inactive" id = "open-chat" href = "#">Chat</a></li>
+                <li><a class = "nav-link-inactive" id = "create-article" href = "#">Create Article</a></li>
+                <li><a class = "nav-link-inactive" id = "open-contact" href = "#">Contact Form</a></li>
+            </ul>
+        </nav>
+        <div class = "user-account">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <img src = "<%image%>" id = "user-photo" class = "account-image">
+            <a class = "user-account-link" id = "user-link" href="#"><%fullNameEN%></a>
+            <a class = "logout" id = "log-out" href="#"><i class="fas fa-sign-out-alt"></i></a>
+        </div>
+    </script>
+
+    <!-- Header template for admin -->
+    <script id="admin-header" type="text/template">
+        <div class = "logo-wrapper">
+            <div class = "logo">Shayrma Group</div>
+            <div class = "page-name">Wikipedia</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a class = "nav-link-active" id="open-articles" href = "#">Main Page</a></li>
+                <li><a class = "nav-link-inactive" id = "open-users" href="#">Users</a></li>
+                <li><a class = "nav-link-inactive" id = "open-news" href = "#">News</a></li>
+                <li><a class = "nav-link-inactive" id = "open-chat" href = "#">Chat</a></li>
+                <li><a class = "nav-link-inactive" id = "create-account" href = "#">Create Account</a></li>
+                <li><a class = "nav-link-inactive" id = "create-article" href = "#">Create Article</a></li>
+                <li><a class = "nav-link-inactive" id = "open-admin" href = "#">Admin Panel</a></li>
+                <li><a class = "nav-link-inactive" id = "open-contact" href = "#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class = "user-account">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <img src = "<%image%>" id = "user-photo" class = "account-image">
+            <a class = "user-account-link" id = "user-link" href="#"><%fullNameEN%></a>
+            <a class = "logout" id = "log-out" href="#"><i class="fas fa-sign-out-alt"></i></a>
+        </div>
+    </script>
+
+    <!-- Template for block display articles -->
+    <script id="block-style-articles" type="text/template">
+        <div class = "user-card-block" data-btn = "profile"  data-id = "<%id%>">
+            <div class = "user-image-block" data-btn = "profile" data-id = "<%id%>">
+                <img src = "<%img%>" id = "img-id" class = "user-face-block" data-btn = "profile"  data-id = "<%id%>"/>
+            </div>
+            <div class = "data-en-block" data-btn = "profile" data-id = "<%id%>">
+                <span id = "full-name-en" class="full-name"><%title%></span>
+            </div>
+            <div class = "data-ru-block">
+                <span id = "full-name-ru" class="full-name"><%author%></span>
+            </div>
+            <hr class="article-hr">
+            <div class = "data-ru-block align">
+                <span id = "full-name-ru" class="full-name"><%description%></span>
+            </div>
+        </div>
+    </script>
+
+    <!-- Template for block display news -->
+    <script id="block-style-news" type="text/template">
+        <div class = "user-card-block" data-btn = "profile"  data-id = "<%id%>">
+            <div class = "user-image-block" data-btn = "profile" data-id = "<%id%>">
+                <img src = "<%img%>" id = "img-id" class = "user-face-block" data-btn = "profile"  data-id = "<%id%>"/>
+            </div>
+            <div class = "data-en-block" data-btn = "profile" data-id = "<%id%>">
+                <span id = "full-name-en" class="full-name"><%title%></span>
+            </div>
+            <div class = "data-ru-block">
+                <span id = "full-name-ru" class="full-name"><%author%></span>
+            </div>
+            <hr class="article-hr">
+            <div class = "data-ru-block align">
+                <span id = "full-name-ru" class="full-name"><%description%></span>
+            </div>
+        </div>
+    </script>
+
+
+    <!-- Template for block display users -->
+    <script id="block-style" type="text/template">
+        <div class = "user-card-block" data-btn = "profile"  data-id = "<%id%>">
+            <div class = "user-image-block" data-btn = "profile" data-id = "<%id%>">
+                <img src = "<%img%>" id = "img-id" class = "user-face-block" data-btn = "profile"  data-id = "<%id%>"/>
+            </div>
+            <div class = "data-en-block" data-btn = "profile" data-id = "<%id%>">
+                <span id = "full-name-en" class="full-name"><%fullNameEN%></span>
+            </div>
+            <div class = "data-ru-block">
+                <span id = "full-name-ru" class="full-name"><%fullNameRU%></span>
+            </div>
+            <hr>
+            <div class = "user-footer-block" data-btn = "profile" data-id = "<%id%>">
+                <div class="department">
+                    <i class="fas fa-layer-group"></i>
+                    <span id = "department-id"><%department%></span>
+                </div>
+                <div class="room">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span id = "room-id"><%room%></span>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <!-- Template for inline display users -->
+    <script id="inline-style" type="text/template">
+        <div class = "user-wrapper-inline wrapper-margin-top"  data-btn = "profile" data-id = "<%id%>">
+            <img class = "user-image-inline" src = "<%img%>" data-btn = "profile" data-id = "<%id%>"/>
+            <div class = "user-name-inline" data-btn = "profile">
+                <div class = "data-en-inline">
+                    <span class="full-name"><%fullNameEN%></span>
+                </div>
+                <div class = "data-ru-inline">
+                    <span class="full-name"><%fullNameRU%></span>
+                </div>
+            </div>
+            <div class = "user-department-inline">
+                <span><%department%></span>
+            </div>
+            <div class = "user-room-inline">
+                <span><%room%></span>
+            </div>
+        </div>
+    </script>
+
+    <!-- Panel with headers for inline display -->
+    <template id="inline-style-navigation">
+        <div class="user-wrapper-inline wrapper-margin-bottom">
+            <div class="user-photo-inline">
+                <i class="fas fa-dot-circle"></i>
+                <span>Photo</span>
+            </div>
+            <div class="user-name-inline">
+                <i class="fas fa-user"></i>
+                <span>Name</span>
+            </div>
+            <div class="user-department-inline">
+                <i class="fas fa-layer-group"></i>
+                <span>Group</span>
+            </div>
+            <div class="user-room-inline">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Year</span>
+            </div>
+        </div>
+    </template>
+
+    <!-- Template Login Form -->
+    <template id="template-authorization">
+        <div id="login-wrapper">
+            <div class="login-content">
+                <div class="background">
+                    <img src="images/background.svg">
+                </div>
+                <form id="login-form">
+                    <img src="images/pic.svg">
+                    <h2 class="title">Welcome</h2>
+                    <div class="input-div one">
+                        <div class="i">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="div">
+                            <h5>Email</h5>
+                            <input type="email" id="email" class="input" required />
+                        </div>
+                    </div>
+                    <div class="input-div pass">
+                        <div class="i">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="div">
+                            <h5>Password</h5>
+                            <input type="password" id="password" class="input" required />
+                        </div>
+                    </div>
+                    <input type="submit" id="butt" class="btn" value="Login">
+                </form>
+            </div>
+        </div>
+    </template>
+
+    <!-- Admin header -->
+    <script id="admin-panel-header" type="text/template">
+        <div class = "admin-panel-title">
+            <span>ROLES & PERMISSIONS</span>
+        </div>
+       
+        <div class = "admin-panel-card">
+            <div class = "user-wrapper-inline alternate-color"  data-btn = "profile">                 
+                <form class = "admin-search-wrapper">
+                    <i class="search-icon fas fa-search"></i>
+                    <input id = "people-search-input" type = "search" class = "search-input admin-search" placeholder="John Smith / Джон Смит"/>
+                <!-- <input id = "people-search-button" type = "button" value = "Search" class = "search-button"/> -->
+                </form>
+                <div class = "column-names">
+                    <span>Address book role</span>
+                    <span>Vacation Role</span>
+                    <span>Admin</span>
+                </div>     
+                
+            </div>
+            <%insertUsers%>
+        </div>
+    </script>
+
+    <!-- Template for displaying users in admin panel -->
+    <script id="admin-panel-user" type="text/template">
+        <div class = "user-wrapper-inline alternate-color"  data-btn = "profile" data-id = "<%id%>">
+            <img class = "user-image-inline" src = "<%image%>" data-btn = "profile" data-id = "<%id%>"/>
+            <div class = "user-name-inline" data-btn = "profile" data-id = "<%id%>">
+                <div class = "data-en-inline">
+                    <span class="full-name"><%fullNameEN%></span>
+                </div>
+                <div class = "data-ru-inline">
+                    <span class="full-name"><%fullNameRU%></span>
+                </div>
+            
+            </div>
+            <div class = "user-role-buttons">    
+                    <div class = "address-book-role">
+                        <button data-book ="user" id="<%id%>" data-id = "<%id%>" class = "<%employee%>">User</button>
+                        <button data-book ="hr" id="<%id%>" data-id = "<%id%>" class = "<%hr%>">HR</li>
+                    </div>
+
+                    <div class = "vacation-role">
+                        <button class = "<%user%>" id="<%id%>" data-id = "<%id%>" data-role = "user">User</button>
+                        <button>PO</button>
+                        <button class = "<%editor%>" id="<%id%>" data-id = "<%id%>" data-role = "editor">DD</button>
+                    </div>
+
+                    <div class = "admin-role">
+                        <button data-role ="admin" id="<%id%>" data-id = "<%id%>" class = "<%admin%>">Admin</button>
+                    </div>         
+            </div>
+        </div>
+    </script>
+
+    <!-- Template for display extended information -->
+    <script id="profile-page-template" type="text/template">
+        <div class = "profile-left">
+            <a href = "./index.html" class = "profile-back-arrow"><i class="fas fa-angle-left"></i></a>
+            <div class = "user-image-block">
+                <i class="fas fa-cannabis photo-icon"></i>
+                <img src = "<%img%>" class = "user-face-block user-face-profile"/>
+            </div>
+            <div class = "full-name-block">
+                <div class = "profile-gender">
+                    <span><%gender%></span>
+                </div>
+                <div class = "data-en-block">
+                    <span class="full-name"><%fullNameEN%></span>
+                </div>
+                <div class = "data-ru-block">
+                    <span class="full-name"><%fullNameRU%></span>
+                </div>
+            </div>
+            <div class = "profile-left-buttons">
+                <a href = "#" class = "left-buttons left-button-id"><i class="fas fa-id-card"></i><%id%></a>
+                <a href = "#" class = "left-buttons left-button-card"><i class="far fa-credit-card"></i>Business cars</a>
+            </div>
+        </div>
+    </script>
+
+
+
+    <script id="article-info-template" type="text/template">
+
+        <div class = "main-info">
+            <div class = "main-info-section">
+                <div class = "main-info-title">
+                    <div id = "edit-details-top" class = "edit-link-align">
+                        <span><h4>General Info</h4></span>
+                        <a href = "#" id="top-article-edit" class = "main-info-edit">Edit Details</a>
+                    </div>
+                    <hr class="full">
+                </div>
+                <div class = "main-info-body">
+                    <div>
+                        <i class="fas fa-layer-group"></i>
+                        <span class = "line-title">Category</span>
+                    </div>
+                    <div>
+                        <span ><%category%>, <%subcategory%></span>
+                    </div>
+                    <div>
+                        <i class="fas fa-calendar-alt"></i>
+                        <span class = "line-title">Date Created</span>
+                    </div>
+                    <div>
+                        <span ><%date%></span>    
+                    </div>         
+                </div>
+            </div>
+
+            <div class = "main-info-section">
+                <div class = "main-info-title title-without-buttons align">
+                    <span><h4><%full_name%></h4></span>
+                    <hr class="full">
+                </div>
+                <div id="article-body" class = "article-body">
+                    <p class="article-desc">
+                        <%description_1%>
+                        <img class="first-pic" src="<%image%>"/>
+                    </p>
+                    <br>
+                    <p class="article-desc">
+                        <%description_2%>
+                    </p>
+                    <br>
+                    <p class="article-desc">
+                        <%description_3%>
+                    </p>
+                </div>
+            </div>
+            <div id = "edit-details-bottom" class = "edit-link-align edit-bottom">
+                <a href = "#" id="download" class = "main-info-edit">Download Article</a>
+            </div>
+        </div>
+
+    </script>
+
+
+    <!-- Template for display extended information ARTICLE-->
+    <script id="article-page-template" type="text/template">
+        <div class = "profile-left">
+            <a href = "./index.html" class = "profile-back-arrow"><i class="fas fa-angle-left"></i></a>
+            <div class = "user-image-block">
+                <i class="fas fa-cannabis photo-icon"></i>
+                <img src = "<%img%>" class = "user-face-block user-face-profile"/>
+            </div>
+            <div class = "full-name-block">
+                <div class = "profile-gender">
+                    <span><%role%></span>
+                </div>
+                <div class = "data-en-block">
+                    <span class="full-name"><%fullNameEN%></span>
+                </div>
+                <div class = "data-ru-block">
+                    <span class="full-name"><%nickname%></span>
+                </div>
+            </div>
+            <div class = "profile-left-buttons">
+                <a href = "#" class = "left-buttons left-button-id"><i class="fas fa-id-card"></i><%id%></a>
+                <a href = "#" class = "left-buttons left-button-card"><i class="far fa-credit-card"></i>Business card</a>
+            </div>
+        </div>
+    </script>
+
+    <script id="profile-info-template" type="text/template">
+
+        <div class = "main-info">
+            <div class = "main-info-section">
+                <div class = "main-info-title">
+                    <div id = "edit-details-top" class = "edit-link-align">
+                        <span><h4>General Info</h4></span>
+                        <!-- <a href = "#" class = "main-info-edit">Edit Details</a> -->
+                    </div>
+                    <hr>
+                </div>
+                <div class = "main-info-body">
+                    <div>
+                        <i class="fas fa-layer-group"></i>
+                        <span class = "line-title">Group</span>
+                    </div>
+                    <div>
+                        <span ><%department%></span>
+                    </div>
+                    <div>
+                        <i class="fas fa-calendar-alt"></i>
+                        <span class = "line-title">Year</span>
+                    </div>
+                    <div>
+                        <span ><%room%></span>    
+                    </div>         
+                </div>
+            </div>
+
+            <div class = "main-info-section">
+                <div class = "main-info-title title-without-buttons">
+                    <span><h4>Contact</h4></span>
+                    <hr>
+                </div>
+                <div class = "main-info-body">
+                    <div>
+                        <i class="fas fa-mobile"></i>
+                        <span class = "line-title">Internal phone</span>
+                    </div>
+                    <div>
+                        <span ><%internal_phone%></span>
+                    </div>
+                    <div>
+                        <i class="fas fa-mobile-alt"></i>
+                        <span class = "line-title">Mobile phone</span>
+                    </div>
+                    <div>
+                        <span ><%mobile_phone%></span>
+                    </div>
+                    <div>
+                        <i class="fas fa-at"></i>
+                        <span class = "line-title">Email</span>
+                    </div>
+                    <div>
+                        <span ><%email%></span>
+                    </div>
+                    <div>
+                        <i class="fab fa-skype"></i>
+                        <span class = "line-title">Skype ID</span>
+                    </div>
+                    <div>
+                        <span ><%skype%></span>
+                    </div>
+                    <div>
+                        <i class="fab fa-keycdn"></i>
+                        <!-- <i class="fas fa-key"></i> -->
+                        <span class = "line-title">C-number</span>
+                    </div>
+                    <div>
+                        <span ><%c_number%></span>  
+                    </div>
+                </div>
+            </div>
+            <div id = "edit-details-bottom" class = "edit-link-align edit-bottom">
+                <!-- <a href = "#" class = "main-info-edit">Edit Details</a> -->
+            </div>
+        </div>
+
+    </script>
+
+    <!-- Create new Account -->
+    <script id="create-user-profile" type="text/template">
+        <form id = "create-account-form">
+            <div class = "profile-left">
+                <a href = "./index.html" class = "profile-back-arrow"><i class="fas fa-angle-left"></i></a>
+                <div class = "user-image-block">
+                    <i class="fas fa-cannabis photo-icon"></i>
+                    <img src = "images/default.jpg" class = "user-face-block user-face-profile"/>
+                </div>
+                <div class = "edit-name-block">
+                    <div>
+                        <input name="gender" placeholder="Gender"/>
+                    </div>
+                    <div>
+                        <input name="firstName_EN" placeholder="First Name (EN)"/>
+                        <input name="lastName_EN" placeholder="Last Name (EN)">
+                    </div>
+                    <div >
+                        <input name="firstName_RU" placeholder="First Name (RU)"/>
+                        <input name="lastName_RU" placeholder="Last Name (RU)"/>
+                        <input name="role" placeholder="Role"/>
+                        <input name="worker_type" placeholder="Worker Type"/>
+                        <input name="password" type="number" placeholder="Password"/>
+                    </div>
+                </div>
+                <div class = "profile-left-buttons">
+                    <!-- <a href = "#" class = "left-buttons left-button-id"><i class="fas fa-id-card"></i><%id%></a>
+                    <a href = "#" class = "left-buttons left-button-card"><i class="far fa-credit-card"></i>Business cars</a> -->
+                    <input class = "left-buttons" type="submit" value="Submit" />
+                </div>
+            </div>
+        </form>
+    </script>
+
+    <script id="create-user-info" type="text/template">
+        <div class = "main-info">
+            <div class = "main-info-section">
+                <div class = "main-info-title">
+                    <div class = "edit-link-align">
+                        <span><h4>General Info</h4></span>
+                        <a href = "#" class = "main-info-edit">Apply</a>
+                    </div>
+                    <hr>
+                </div>
+                <div class = "main-info-body">
+                    <div>
+                        <i class="fas fa-layer-group"></i>
+                        <span class = "line-title">Group</span>
+                    </div>
+                    <div>
+                        <input  placeholder = "Department">
+                    </div>
+                    <div>
+                        <i class="fas fa-calendar-alt"></i>
+                        <span class = "line-title">Year</span>
+                    </div>
+                    <div>
+                        <input  placeholder="Year">    
+                    </div>         
+                </div>
+            </div>
+        
+            <div class = "main-info-section">
+                <div class = "main-info-title title-without-buttons">
+                    <span><h4>Contact</h4></span>
+                    <hr>
+                </div>
+                <div class = "main-info-body">
+                    <div>
+                        <i class="fas fa-mobile"></i>
+                        <span class = "line-title">Internal phone</span>
+                    </div>
+                    <div>
+                        <input  placeholder="Internal phone">
+                    </div>
+                    <div>
+                        <i class="fas fa-mobile-alt"></i>
+                        <span class = "line-title">Mobile phone</span>
+                    </div>
+                    <div>
+                        <input  placeholder="Mobile phone">
+                    </div>
+                    <div>
+                        <i class="fas fa-at"></i>
+                        <span class = "line-title">Email</span>
+                    </div>
+                    <div>
+                        <input  type = "email" placeholder="Email">
+                    </div>
+                    <div>
+                        <i class="fab fa-skype"></i>
+                        <span class = "line-title">Skype ID</span>
+                    </div>
+                    <div>
+                        <input  placeholder="Skype">
+                    </div>
+                    <div>
+                        <i class="fab fa-keycdn"></i>
+                        <!-- <i class="fas fa-key"></i> -->
+                        <span class = "line-title">C-number</span>
+                    </div>
+                    <div>
+                        <input  placeholder="C-Number">  
+                    </div>
+                </div>
+            </div>
+            <div class = "edit-link-align edit-bottom">
+                <a href = "#" class = "main-info-edit">Apply</a>
+            </div>
+        </div>
+    </script>
+
+    <script id="create-article-profile" type="text/template">
+        <form id = "create-account-form">
+            <div class = "profile-left">
+                <a href = "./index.html" class = "profile-back-arrow"><i class="fas fa-angle-left"></i></a>
+                <div class = "user-image-block">
+                    <i class="fas fa-cannabis photo-icon"></i>
+                    <img src = "images/articles/11.jpg" class = "user-face-block user-face-profile"/>
+                </div>
+                
+                <div class = "profile-left-buttons">
+                    <!-- <a href = "#" class = "left-buttons left-button-id"><i class="fas fa-id-card"></i><%id%></a>
+                    <a href = "#" class = "left-buttons left-button-card"><i class="far fa-credit-card"></i>Business cars</a> -->
+                   
+                </div>
+            </div>
+        </form>
+    </script>
+
+    <script id="create-article-info" type="text/template">
+        <div class = "main-info">
+            <form id = "create-article-form">
+            <div class = "main-info-section">
+                <div class = "main-info-title">
+                    <div class = "edit-link-align">
+                        <span><h4>Category Info</h4></span>
+                        <a href = "#" class = "main-info-edit">Apply</a>
+                    </div>
+                    <hr>
+                </div>
+                <div class = "main-info-body">
+                    <div>
+                        <i class="fas fa-layer-group"></i>
+                        <span class = "line-title">Category</span>
+                    </div>
+                    <div>
+                        <input name="category" placeholder="Category"/>
+                    </div>
+                    <div>
+                        <i class="fas fa-calendar-alt"></i>
+                        <span class = "line-title">SubCategory</span>
+                    </div>
+                    <div>
+                        <input name="subcategory" placeholder="SubCategory"/>
+                    </div>         
+                </div>
+            </div>
+        
+            <div class = "main-info-section">
+                <div class = "main-info-title title-without-buttons">
+                    <span><h4>General Info</h4></span>
+                    <hr>
+                </div>
+                <div class = "main-info-body">
+                    <div>
+                        <i class="fas fa-mobile"></i>
+                        <span class = "line-title">Title</span>
+                    </div>
+                    <div>
+                        <input name="a_name" placeholder="Title"/>
+                    </div>
+                    <div>
+                        <i class="fas fa-mobile-alt"></i>
+                        <span class = "line-title">Extended Title</span>
+                    </div>
+                    <div>
+                        <input name="a_full_name" placeholder="Extended Title"/>
+                    </div>
+                    <div>
+                        <i class="fas fa-audio-description"></i>
+                        <span class = "line-title">Short Description</span>
+                    </div>
+                    <div>
+                        <input name="a_short_desc" placeholder="Short Description"/>
+                    </div>
+                    <div>
+                        <i class="fas fa-audio-description"></i>
+                        <span class = "line-title">First Description</span>
+                    </div>
+                    <div>
+                        <input name="a_description_1" placeholder="First Description"/>
+                    </div>
+                    <div>
+                        <i class="fas fa-audio-description"></i>
+                        <!-- <i class="fas fa-key"></i> -->
+                        <span class = "line-title">Second Description</span>
+                    </div>
+                    <div>
+                        <input name="a_description_2" placeholder="Second Description"/>
+                    </div>
+                    <div>
+                        <i class="fas fa-audio-description"></i>
+                        <!-- <i class="fas fa-key"></i> -->
+                        <span class = "line-title">Third Description</span>
+                    </div>
+                    <div>
+                        <input name="a_description_3" placeholder="Third Description"/>
+                    </div>
+                    <div>
+                        <i class="fab fa-keycdn"></i>
+                        <!-- <i class="fas fa-key"></i> -->
+                        <span class = "line-title">Author</span>
+                    </div>
+                    <div>
+                        <input name="a_users_id" value="<%author%>" placeholder="<%authorName%>"/>
+                    </div>
+                </div>
+            </div>
+            <div class = "edit-link-align edit-bottom">
+                <a href = "#" id="open-edit-article" class = "main-info-edit">Apply</a>
+            </div>
+            <input class = "left-buttons" type="submit" value="Submit" />
+        </form>
+        </div>
+    </script>
+
+
+    <!-- Profile Edit page -->
+    <script id="open-edit-profile" type="text/template">
+        <div class = "profile-left">
+            <div class = "edit-warning-block">
+            <a href = "./index.html" class = "profile-back-arrow"><i class="fas fa-angle-left"></i></a>
+            <div class = "user-image-block">
+                <i class="fas fa-cannabis photo-icon"></i>
+                <img src = "<%image%>" class = "user-face-block user-face-profile"/>
+            </div>
+                
+                <p class = "edit-warning">
+                    Welcome to the page for editing user information, be careful.
+                </p>
+                <p class = "edit-warning">
+                    Сhanges will be sent to the database and will immediately appear on the site. 
+                </p>
+                <p class = "edit-warning">
+                    Do not edit user information unnecessarily.
+                </p>
+                
+            <div class = "profile-left-buttons">
+                <a href = "#" class = "left-buttons left-button-id"><i class="fas fa-id-card"></i>ID <%id%></a>
+                <a href = "#" class = "left-buttons left-button-card"><i class="far fa-credit-card"></i>Business cars</a>
+            </div>
+        </div>
+        </div>
+    </script>
+
+    <script id="open-edit-info" type="text/template">
+        <form id = "edit-profile-form">
+            <div class = "main-info">
+                <div class = "main-info-section">
+                    <div class = "main-info-title">
+                        <div class = "edit-link-align">
+                            <span><h4>Passport Info</h4></span>
+                            <a href = "#" class = "main-info-edit">Apply</a>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class = "main-info-body">
+                        <div>
+                            <i class="fas fa-user"></i>
+                            <span class = "line-title">First Name (EN)</span>
+                        </div>
+                        <div>
+                            <input name="firstName_EN" placeholder="First Name (EN)" value = "<%firstName_EN%>"/>
+                        </div>
+                        <div>
+                            <i class="fas fa-user"></i>
+                            <span class = "line-title">Last Name (EN)</span>
+                        </div>
+                        <div>
+                            <input name="lastName_EN" placeholder="Last Name (EN)" value = "<%lastName_EN%>"/>
+                        </div>   
+                        <div>
+                            <i class="fas fa-user"></i>
+                            <span class = "line-title">First Name (RU)</span>
+                        </div>
+                        <div>
+                            <input name="firstName_RU" placeholder="First Name (RU)" value = "<%firstName_RU%>"/>
+                        </div>
+                        <div>
+                            <i class="fas fa-user"></i>
+                            <span class = "line-title">Last Name (RU)</span>
+                        </div>
+                        <div>
+                            <input name="lastName_RU" placeholder="Last Name (RU)" value = "<%lastName_RU%>">
+                        </div>      
+                        
+        
+                        <div>
+                            <i class="fas fa-user"></i>
+                            <span class = "line-title">Gender</span>
+                        </div>
+                        <div>
+                            <input name="gender" placeholder="Gender" value = "<%gender%>">
+                        </div>    
+                        <div>
+                            <i class="fas fa-user-tie"></i>
+                            <span class = "line-title">Worker Type</span>
+                        </div>
+                        <div>
+                            <input name="worker_type" placeholder="Worker Type" value = "<%worker_type%>">
+                        </div>   
+                    </div>
+                </div>
+            
+                    <div class = "main-info-section">
+                        <div class = "main-info-title title-without-buttons">
+                            <span><h4>Profile Info</h4></span>
+                            <hr>
+                        </div>
+                        <div class = "main-info-body">
+                            <div>
+                                <i class="fas fa-user-tag"></i>
+                                <span class = "line-title">Role</span>
+                            </div>
+                            <div>
+                                <input name="role"  placeholder="Role" value = "<%role%>"/>
+                            </div>  
+                            <div>
+                                <i class="fas fa-user-shield"></i>
+                                <span class = "line-title">Password</span>
+                            </div>
+                            <div>
+                                <input name="password"   placeholder="Password" value = "<%password%>"/>
+                            </div>        
+                        </div>
+                    </div>
+
+                    <div class = "main-info-section">
+                        <div class = "main-info-title title-without-buttons">
+                            <span><h4>General Info</h4></span>
+                            <hr>
+                        </div>
+                        <div class = "main-info-body">
+                            <div>
+                                <i class="fas fa-layer-group"></i>
+                                <span class = "line-title">Group</span>
+                            </div>
+                            <div>
+                                <input name = "department"  placeholder = "Group" value = "<%department%>"/>
+                            </div>
+                            <div>
+                                <i class="fas fa-calendar-alt"></i>
+                                <span class = "line-title">Year</span>
+                            </div>
+                            <div>
+                                <input name = "room"  placeholder="Year" value = "<%room%>"/>    
+                            </div>         
+                        </div>
+                    </div>
+
+                    <div class = "main-info-section">
+                        <div class = "main-info-title title-without-buttons">
+                            <span><h4>Contact</h4></span>
+                            <hr>
+                        </div>
+                        <div class = "main-info-body">
+                            <div>
+                                <i class="fas fa-mobile"></i>
+                                <span class = "line-title">Internal phone</span>
+                            </div>
+                            <div>
+                                <input name = "internal_phone"  placeholder="Internal phone" value = "<%internal_phone%>"/>
+                            </div>
+                            <div>
+                                <i class="fas fa-mobile-alt"></i>
+                                <span class = "line-title">Mobile phone</span>
+                            </div>
+                            <div>
+                                <input name = "mobile_phone"  placeholder="Mobile phone" value = "<%mobile_phone%>">
+                            </div>
+                            <div>
+                                <i class="fas fa-at"></i>
+                                <span class = "line-title">Email</span>
+                            </div>
+                            <div>
+                                <input name = "email"  placeholder="Email" value = "<%email%>"/>
+                            </div>
+                            <div>
+                                <i class="fab fa-skype"></i>
+                                <span class = "line-title">Skype ID</span>
+                            </div>
+                            <div>
+                                <input name = "skype"  placeholder="Skype" value = "<%skype%>"/>
+                            </div>
+                            <div>
+                                <i class="fab fa-keycdn"></i>
+                                <!-- <i class="fas fa-key"></i> -->
+                                <span class = "line-title">C-number</span>
+                            </div>
+                            <div>
+                                <input name = "c_number"  placeholder="C-Number" value = "<%c_number%>"/>  
+                            </div>
+                        </div>
+                    </div>
+
+                <div class = "edit-link-align edit-bottom">
+                    <a href = "#" class = "main-info-edit">Apply</a>
+                </div>
+                <input class = "left-buttons" type="submit" value="Submit" />
+            </div>
+        </form>
+    </script>
+
+
+    <!-- EDIT ARTICLE -->
+    <script id="open-edit-article" type="text/template">
+        <div class = "profile-left">
+            <div class = "edit-warning-block">
+            <a href = "./index.html" class = "profile-back-arrow"><i class="fas fa-angle-left"></i></a>
+            <div class = "user-image-block">
+                <i class="fas fa-cannabis photo-icon"></i>
+                <img src = "<%image%>" class = "user-face-block user-face-profile"/>
+            </div>
+                
+                <p class = "edit-warning">
+                    Welcome to the page for editing article information, be careful.
+                </p>
+                <p class = "edit-warning">
+                    Сhanges will be sent to the database and will immediately appear on the site. 
+                </p>
+                <p class = "edit-warning">
+                    Do not edit user information unnecessarily.
+                </p>
+                
+            <div class = "profile-left-buttons">
+                <a href = "#" class = "left-buttons left-button-id"><i class="fas fa-id-card"></i>ID <%id%></a>
+                <a href = "#" class = "left-buttons left-button-card"><i class="far fa-credit-card"></i>Business cars</a>
+            </div>
+        </div>
+        </div>
+    </script>
+
+    <script id="open-edit-article-info" type="text/template">
+        <form id = "edit-article-form">
+            <div class = "main-info">
+                <div class = "main-info-section">
+                    <div class = "main-info-title">
+                        <div class = "edit-link-align">
+                            <span><h4>General Info</h4></span>
+                            <a href = "#" class = "main-info-edit">Apply</a>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class = "main-info-body">
+                        <div>
+                            <i class="fas fa-user"></i>
+                            <span class = "line-title">Article ID</span>
+                        </div>
+                        <div>
+                            <input name="a_id" placeholder="Article ID" value = "<%a_id%>"/>
+                        </div>
+                        <div>
+                            <i class="fas fa-user"></i>
+                            <span class = "line-title">Title</span>
+                        </div>
+                        <div>
+                            <input name="a_name" placeholder="Title" value = "<%a_name%>"/>
+                        </div>
+                        <div>
+                            <i class="fas fa-user"></i>
+                            <span class = "line-title">Extended Title</span>
+                        </div>
+                        <div>
+                            <input name="a_full_name" placeholder="Extended Title" value = "<%a_full_name%>"/>
+                        </div>   
+                        <div>
+                            <i class="fas fa-user"></i>
+                            <span class = "line-title">Short Description</span>
+                        </div>
+                        <div>
+                            <input name="a_short_desc" placeholder="Short Description" value = "<%a_short_desc%>"/>
+                        </div>
+                        <div>
+                            <i class="fas fa-user"></i>
+                            <span class = "line-title">First Description</span>
+                        </div>
+                        <div>
+                            <input name="a_description_1" placeholder="First Description" value = "<%a_description_1%>">
+                        </div>      
+                        
+                        <div>
+                            <i class="fas fa-user"></i>
+                            <span class = "line-title">Second Description</span>
+                        </div>
+                        <div>
+                            <input name="a_description_2" placeholder="Second Description" value = "<%a_description_2%>">
+                        </div>   
+                        <div>
+                            <i class="fas fa-user"></i>
+                            <span class = "line-title">Third Description</span>
+                        </div>
+                        <div>
+                            <input class="height" name="a_description_3" placeholder="Third Description" value = "<%a_description_3%>">
+                        </div>    
+                    </div>
+                </div>
+                
+                <div class = "edit-link-align edit-bottom">
+                    <a href = "#" class = "main-info-edit">Apply</a>
+                </div>
+                <input class = "left-buttons" type="submit" value="Submit" />
+            </div>
+        </form>
+    </script>
+
+    <script src="modules.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
